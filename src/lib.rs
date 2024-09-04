@@ -14,7 +14,7 @@ pub fn ignored(path: impl AsRef<Path>) -> Result<bool> {
     Ok(Ignore::new(path.as_ref().parent().unwrap())?.check(path))
 }
 
-struct Ignore {
+pub struct Ignore {
     matcher: Gitignore,
 }
 
@@ -25,12 +25,12 @@ impl Default for Ignore {
 }
 
 impl Ignore {
-    fn new(dir: impl AsRef<Path>) -> Result<Ignore> {
-        let mut builder = GitignoreBuilder::new(&dir);
+    pub fn new(root: impl AsRef<Path>) -> Result<Ignore> {
+        let mut builder = GitignoreBuilder::new(&root);
 
         // Add local `.gitignore` file(s)
         let mut added = BTreeSet::new();
-        let mut dir = dir.as_ref().to_path_buf();
+        let mut dir = root.as_ref().to_path_buf();
         loop {
             add_path(dir.join(".gitignore"), &mut builder, &mut added)?;
 
@@ -51,7 +51,7 @@ impl Ignore {
         })
     }
 
-    fn check(&self, path: impl AsRef<Path>) -> bool {
+    pub fn check(&self, path: impl AsRef<Path>) -> bool {
         self.matcher
             .matched_path_or_any_parents(&path, path.as_ref().is_dir())
             .is_ignore()

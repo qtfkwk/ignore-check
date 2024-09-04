@@ -13,9 +13,16 @@ This crate uses [`ignore`] but provides a much easier interface.
 # Usage
 
 ```rust
-use ignore_check::ignored;
+use ignore_check::{ignored, Ignore};
 
 assert!(ignored("target").unwrap());
 assert!(!ignored("src/lib.rs").unwrap());
+
+// Use an `Ignore` to check multiple files under the same root directory:
+
+let ignore = Ignore::new(".").unwrap();
+
+assert!(ignore.check("target"));
+assert!(!ignore.check("src/lib.rs"));
 ```
 
