@@ -1,0 +1,11 @@
+[package]
+name = "ignore-check"
+version = "0.1.0"
+edition = "2021"
+description = "Check if a path is ignored"
+repository = "https://github.com/qtfkwk/ignore-check"
+license = "MIT"
+
+[dependencies]
+anyhow = "1.0"
+ignore = "0.4"
