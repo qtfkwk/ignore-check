@@ -1,4 +1,4 @@
-use ignore_check::{ignored, Ignore};
+use ignore_check::{Ignore, ignored};
 
 #[test]
 fn ignored_file() {

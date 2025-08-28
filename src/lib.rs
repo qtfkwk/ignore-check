@@ -1,8 +1,8 @@
 #![doc = include_str!("../README.md")]
 
 use {
-    anyhow::{anyhow, Result},
-    ignore::gitignore::{gitconfig_excludes_path, Gitignore, GitignoreBuilder},
+    anyhow::{Result, anyhow},
+    ignore::gitignore::{Gitignore, GitignoreBuilder, gitconfig_excludes_path},
     std::{
         collections::BTreeSet,
         path::{Path, PathBuf},
