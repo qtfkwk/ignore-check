@@ -9,7 +9,17 @@ use {
     },
 };
 
-/// Check if a path is ignored
+/**
+Check if a path is ignored
+
+# Panics
+
+Panics if the given path has no parent
+
+# Errors
+
+Returns an error if the given path fails to be processed
+*/
 pub fn ignored(path: impl AsRef<Path>) -> Result<bool> {
     Ok(Ignore::new(path.as_ref().parent().unwrap())?.check(path))
 }
@@ -25,6 +35,11 @@ impl Default for Ignore {
 }
 
 impl Ignore {
+    /**
+    # Errors
+
+    Returns an error if the given path fails to be processed
+    */
     pub fn new(root: impl AsRef<Path>) -> Result<Ignore> {
         let mut builder = GitignoreBuilder::new(&root);
 
@@ -64,12 +79,11 @@ fn add_path(
     added: &mut BTreeSet<PathBuf>,
 ) -> Result<()> {
     if path.exists() && !added.contains(&path) {
-        match builder.add(&path) {
-            Some(e) => Err(anyhow!("Failed to add {path:?}: {e}")),
-            None => {
-                added.insert(path);
-                Ok(())
-            }
+        if let Some(e) = builder.add(&path) {
+            Err(anyhow!("Failed to add {:?}: {e}", path.display()))
+        } else {
+            added.insert(path);
+            Ok(())
         }
     } else {
         Ok(())

@@ -1,6 +1,6 @@
 [package]
 name = "ignore-check"
-version = "0.3.1"
+version = "0.3.2"
 edition = "2024"
 description = "Check if a path is ignored"
 repository = "https://github.com/qtfkwk/ignore-check"
