@@ -11,4 +11,5 @@
     * 0.3.2 (2025-11-13): Update dependencies; clippy fixes
     * 0.3.3 (2026-03-03): Update dependencies
     * 0.3.4 (2026-03-03): Update dependencies
+    * 0.3.5 (2026-04-17): Update dependencies
 
